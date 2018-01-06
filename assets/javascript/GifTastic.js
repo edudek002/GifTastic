@@ -3,29 +3,29 @@
 var topics =["skiing", "biathlon", "bobsleigh", "cross country skiing", "curling", "figure skating", "freestyle skiing", "ice hockey", "luge", "nordic combined", "speed skating"];
 
 
-function renderButtons(){
+function renderButtons(topics, mySport, place){
 
-		$("#sports").empty();
+		$(place).empty();
 
         for (var i=0; i<topics.length; i++){
 
         var button = $("<button>");
-  		button.addClass("mySport");
+  		button.addClass(mySport);
   		button.attr("data-sport", topics[i]);
   		button.text(topics[i]);
-  		$("#sports").append(button);
+  		$(place).append(button);
   		console.log(topics[i])
 		};
 }
 
-renderButtons();
+renderButtons(topics, "searchSport", "#sports");
 
 
-$("button").on("click", function(){
+$(document).on("click", ".searchSport", function(){
 
 	$("#GifsGoHere").empty();
 
-	x = $(this).data("sport"); 
+	var x = $(this).data("sport"); 
 	console.log(x); 
 
 	var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + x + "&api_key=HE1t8YdXXknxgszYouwP2djjPBCZUfix&limit=10";
@@ -43,10 +43,12 @@ $("button").on("click", function(){
         		var p = $("<p>").text("Rating: " + response.data[i].rating);
 
         		var sportsImage = $("<img>");
-        		sportsImage.attr("src", response.data[i].images.fixed_height_still.url);
-        		sportsImage.attr("data-still", response.data[i].images.fixed_height_still.url);
-        		sportsImage.attr("data-animated", response.data[i].images.fixed_height.url);
-        		sportsImage.attr("data-now", "response.data[i].images.fixed_height_still.url");
+        		var animated = response.data[i].images.fixed_height.url;
+        		var still = response.data[i].images.fixed_height_still.url;
+        		sportsImage.attr("src", still);
+        		sportsImage.attr("data-still", still);
+        		sportsImage.attr("data-animated", animated);
+        		sportsImage.attr("data-now", "still");
         		sportsImage.addClass("searchImage");
 
         		sportsDiv.append(p);
@@ -61,11 +63,13 @@ $("button").on("click", function(){
 
 
 
-$("#addSearch").on("click", function(){
+$("#addSport").on("click", function(){
 
-	var newSport = $("input").val().eq(0);
+	event.preventDefault();
+
+	var newSport = $("#search-input").eq(0).val();
 	topics.push(newSport);
-	renderButtons();
+	renderButtons(topics, "searchSport", "#sports");
 	return false;
 
 })
