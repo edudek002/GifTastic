@@ -3,25 +3,25 @@
 var topics =["skiing", "biathlon", "bobsleigh", "cross country skiing", "curling", "figure skating", "freestyle skiing", "ice hockey", "luge", "nordic combined", "speed skating"];
 
 
-function renderButtons(topics, mySport, place){
+function renderButtons(){
 
-		$(place).empty();
+		$("#sports").empty();
 
         for (var i=0; i<topics.length; i++){
 
-        var button = $("<button>");
-  		button.addClass(mySport);
+      var button = $("<button>");
+  		button.addClass("mySport");
   		button.attr("data-sport", topics[i]);
   		button.text(topics[i]);
-  		$(place).append(button);
+  		$("#sports").append(button);
   		console.log(topics[i])
 		};
 }
 
-renderButtons(topics, "searchSport", "#sports");
+renderButtons();
 
 
-$(document).on("click", ".searchSport", function(){
+$("#sports").on("click", ".mySport", function(){
 
 	$("#GifsGoHere").empty();
 
@@ -62,31 +62,31 @@ $(document).on("click", ".searchSport", function(){
 })
 
 
-
 $("#addSport").on("click", function(){
 
 	event.preventDefault();
-
 	var newSport = $("#search-input").eq(0).val();
 	topics.push(newSport);
-	renderButtons(topics, "searchSport", "#sports");
+	renderButtons();
 	return false;
 
 })
 
+
+
 $(document).on("click", ".searchImage", function(){
 	var now = $(this).attr("data-now");
 
-	if (now ="response.data[i].images.fixed_height_still.url"){
+	if (now =="still"){
 
-		$(this).attr("src", $(this).data("response.data[i].images.fixed_height.url"));
-		$(this).attr("data-now","response.data[i].images.fixed_height.url");
+		$(this).attr("src", $(this).data("animated"));
+		$(this).attr("data-now","animated");
 	} 
 
 	else {
 
-		$(this).attr("src", $(this).data("response.data[i].images.fixed_height_still.url"));
-		$(this).attr("data-now","response.data[i].images.fixed_height_still.url");
+		$(this).attr("src", $(this).data("still"));
+		$(this).attr("data-now","still");
 	
 	}
 })
