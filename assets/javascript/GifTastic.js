@@ -2,6 +2,8 @@
 
 var topics =["skiing", "biathlon", "bobsleigh", "cross country skiing", "curling", "figure skating", "freestyle skiing", "ice hockey", "luge", "nordic combined", "speed skating"];
 
+// function that creates sports buttons
+
 
 function renderButtons(){
 
@@ -20,10 +22,13 @@ function renderButtons(){
 
 renderButtons();
 
+//Click event creates 10 sport gifs and places them in 2 columns
+
 
 $("#sports").on("click", ".mySport", function(){
 
-	$("#GifsGoHere").empty();
+	$("#GifsGoHere1").empty();
+  $("#GifsGoHere2").empty();
 
 	var x = $(this).data("sport"); 
 	console.log(x); 
@@ -31,6 +36,8 @@ $("#sports").on("click", ".mySport", function(){
 	var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + x + "&api_key=HE1t8YdXXknxgszYouwP2djjPBCZUfix&limit=10";
 
 	console.log(queryURL);
+
+  //Ajax call for specified gifs from Giphy API.
 
 	$.ajax({
           url: queryURL,
@@ -50,20 +57,26 @@ $("#sports").on("click", ".mySport", function(){
         		sportsImage.attr("data-animated", animated);
         		sportsImage.attr("data-now", "still");
         		sportsImage.addClass("searchImage");
-
         		sportsDiv.append(p);
         		sportsDiv.append(sportsImage);
 
-        		$("#GifsGoHere").append(sportsDiv);
-
+            //Add the first 5 gifs retrieved from the giphy API.
+            if (i >= 0 && i < 5) {
+              $("#GifsGoHere1").append(sportsDiv);
+            }
+            //Add the last 5 gifs retrieved from the giphy API.
+            else {
+              $("#GifsGoHere2").append(sportsDiv);
+            }
         	}
-    });  
+  });  
 
 })
 
+//Using the input form to add new sports
+
 
 $("#addSport").on("click", function(){
-
 	event.preventDefault();
 	var newSport = $("#search-input").eq(0).val();
 	topics.push(newSport);
@@ -72,19 +85,17 @@ $("#addSport").on("click", function(){
 
 })
 
-
+//Animating gifs and stopping them from moving 
 
 $(document).on("click", ".searchImage", function(){
 	var now = $(this).attr("data-now");
 
 	if (now =="still"){
-
 		$(this).attr("src", $(this).data("animated"));
 		$(this).attr("data-now","animated");
 	} 
 
 	else {
-
 		$(this).attr("src", $(this).data("still"));
 		$(this).attr("data-now","still");
 	
