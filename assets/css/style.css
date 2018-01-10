@@ -8,13 +8,22 @@
 
 h1 {
 	position: absolute;
-	top: 20px;
+	top: 520px;
 	left: 650px;
     text-align: center;
     color: #993366;
     z-index: 2;
-
 }
+
+#currentSport {
+	position: absolute;
+	top: 620px;
+	left: 680px;
+    text-align: center;
+    color: navy;
+    z-index: 2;
+}
+
 
 p {
 
@@ -63,9 +72,25 @@ p {
 
 /*Gifs on the left side*/
 
+/* Here I tried to change Gifs' sizes */
+
+.resize{
+	height:148px;
+	width: 100%;
+}
+
+.resize p {
+	height: 10px;
+}
+
+.resize img {
+	height: 125px;
+}
+
+
 #GifsGoHere1 {
  	position: absolute;
-	top: 200px;	
+	top: 50px;	
 	left: 0px;
 	border: 5px solid #000066;
 	opacity: 0.85;
@@ -77,8 +102,8 @@ p {
 
 #GifsGoHere2 {
  	position: absolute;
-	top: 200px;	
-	left: 70px;
+	top: 50px;	
+	left: 190px;
 	border: 5px solid #000066;
 	opacity: 0.85;
 	filter: alpha(opacity=85);

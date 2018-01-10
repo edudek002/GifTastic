@@ -31,7 +31,9 @@ $("#sports").on("click", ".mySport", function(){
   $("#GifsGoHere2").empty();
 
 	var x = $(this).data("sport"); 
-	console.log(x); 
+	console.log(x);
+
+  $("#currentSport").text(x);
 
 	var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + x + "&api_key=HE1t8YdXXknxgszYouwP2djjPBCZUfix&limit=10";
 
@@ -47,6 +49,7 @@ $("#sports").on("click", ".mySport", function(){
         	for (var i=0; i<response.data.length; i++){
 
         		var sportsDiv = $("<div>");
+            sportsDiv.addClass("resize"); 
         		var p = $("<p>").text("Rating: " + response.data[i].rating);
 
         		var sportsImage = $("<img>");
